@@ -1,0 +1,13 @@
+the all city
+JN BJ TJ SH CQ WH XG(only plane can arrive)
+
+1. search a not exist city such as OM
+(OM to SH by train or plane)
+2. search a way to XG to take the train
+such as XG to SH by train(DO NOT HAVE A WAY)
+3. change the train to plane
+4. search that have many ways such as
+JN to SH by train.
+5. search that by plane
+6. change the file such as XG to OM
+7. search OM to SH at 15:10 and plane
