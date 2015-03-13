@@ -8,3 +8,9 @@ A small demo for  << the data structures and algorithms and applications in C++ 
 讯程序，为旅客提供两种或三种最优决策的交通咨询。
 
 ### the way to solve the problem is
+
+枚举+最小堆
+
+### PS：
+
+于是课设就写完了，硬要等级的话，大概是B级的叭（恩是Baka的B），尽管只会拖来拖去，不过至少也写出来MFC了。
