@@ -10,10 +10,10 @@
 #include<sstream>
 using namespace std;
 
-map<string, int> place;
-stack<int> knum;
-ans pans[3], ppns;
-
+map<string, int> place;//to store all city name and you can search the city by it's number
+stack<int> knum;//if you delete a city ,this will keep the key number of the city
+ans pans[3], ppns;//to store the answer of the way
+//the constructed function
 Theroad::Theroad(){
 	citynum = 0;
 	Road rrRoad;
@@ -25,16 +25,16 @@ Theroad::Theroad(){
 	init(in);
 	in.close();
 }
-
+//init the text
 void Theroad::init(ifstream& in) {
 	int n;
-	in >> n;
+	in >> n;//the number of the train table
 	inputt(in,n);
 	in >> n;
-	inputp(in,n);
+	inputp(in,n);//the number of the plane table
 	cout << "finish" << endl;
 }
-
+//the way to insert city
 void Theroad::insertcity(char *chr) {
 	if (place.count(chr)) {
 		return;
@@ -48,21 +48,21 @@ void Theroad::insertcity(char *chr) {
 		knum.pop();
 	}
 }
-
+//to paint all the city in the text
 void Theroad::printcity() {
 	ofstream out("test.txt");
 	for (map<string, int>::iterator it = place.begin(); it != place.end(); it++)
 		out << it->first << " " << it->second << endl;
 	out.close();
 }
-
+//judge if the city is in the text
 bool Theroad::findcity(string str){
 	for (map<string, int>::iterator it = place.begin(); it != place.end(); it++)
 		if (it->first == str)
 			return true;
 	return false;
 }
-
+//return the passing time by minute that time2 - time1 
 int Theroad::cnttime(char *time1, char *time2) {
 	int tm1, tm2, res = 0;
 	tm1 = ((time1[0] - '0') * 10 + time1[1] - '0') * 60 + (time1[3] - '0') * 10 + time1[4] - '0';
@@ -71,7 +71,7 @@ int Theroad::cnttime(char *time1, char *time2) {
 	if (res<10)res += 24 * 60;
 	return res;
 }
-
+//input the train table
 void Theroad::inputt(ifstream& in,int n) {
 	int s, e, pos, cnt, st, tc[mn];
 	char name[l], tn[mn][l], ttm1[mn][l], ttm2[mn][l];
@@ -99,7 +99,7 @@ void Theroad::inputt(ifstream& in,int n) {
 		}
 	}
 }
-
+//input the plane table
 void Theroad::inputp(ifstream& in,int n) {
 	char name[l], pn1[l], pn2[l], tm1[l], tm2[l];
 	int cost;
@@ -118,7 +118,7 @@ void Theroad::inputp(ifstream& in,int n) {
 		troad[s][e].pcnt++;
 	}
 }
-
+//using in findroad
 void Theroad::copyt1(int pos, int s, int e, int i, char *tm) {
 	strcpy_s(pans[pos].aname, troad[s][e].tname[i]);
 	pans[pos].acost = troad[s][e].tcost[i];
@@ -126,7 +126,7 @@ void Theroad::copyt1(int pos, int s, int e, int i, char *tm) {
 	strcpy_s(pans[pos].abegin, troad[s][e].ttname1[i]);
 	strcpy_s(pans[pos].aend, troad[s][e].ttname2[i]);
 }
-
+//using in findroad
 void Theroad::copyt2(int pos, int s, int tp, int e, int i, int j, char *tm, string ct) {
 	strcpy_s(pans[pos].aname, troad[s][tp].tname[i]);
 	pans[pos].aname[4] = '-';
@@ -137,7 +137,7 @@ void Theroad::copyt2(int pos, int s, int tp, int e, int i, int j, char *tm, stri
 	strcpy_s(pans[pos].aend, troad[tp][e].ttname2[j]);
 	pans[pos].hub = ct;
 }
-
+//find the way that choose train and money
 int Theroad::findroadtm(char *pn1, char *pn2, char *tm) {
 	int s = place.find(pn1)->second;
 	int e = place.find(pn2)->second;
@@ -184,7 +184,7 @@ int Theroad::findroadtm(char *pn1, char *pn2, char *tm) {
 //	printans(num);
 	return num;
 }
-
+//find the way that choose train and time
 int Theroad::findroadtt(char *pn1, char *pn2, char *tm) {
 	int s = place.find(pn1)->second;
 	int e = place.find(pn2)->second;
@@ -231,7 +231,7 @@ int Theroad::findroadtt(char *pn1, char *pn2, char *tm) {
 //	printans(num);
 	return num;
 }
-
+//using in findroad
 void Theroad::copyp1(int pos, int s, int e, int i, char *tm) {
 	strcpy_s(pans[pos].aname, troad[s][e].pname[i]);
 	pans[pos].acost = troad[s][e].pcost[i];
@@ -239,7 +239,7 @@ void Theroad::copyp1(int pos, int s, int e, int i, char *tm) {
 	strcpy_s(pans[pos].abegin, troad[s][e].ptname1[i]);
 	strcpy_s(pans[pos].aend, troad[s][e].ptname2[i]);
 }
-
+//using in findroad
 void Theroad::copyp2(int pos, int s, int tp, int e, int i, int j, char *tm, string ct){
 	strcpy_s(pans[pos].aname, troad[s][tp].pname[i]);
 	pans[pos].aname[4] = '-';
@@ -250,7 +250,7 @@ void Theroad::copyp2(int pos, int s, int tp, int e, int i, int j, char *tm, stri
 	strcpy_s(pans[pos].aend, troad[tp][e].ptname2[j]);
 	pans[pos].hub = ct;
 }
-
+//find the way that choose plane and money
 int Theroad::findroadpm(char *pn1, char *pn2, char *tm) {
 	int s = place.find(pn1)->second;
 	int e = place.find(pn2)->second;
@@ -296,7 +296,7 @@ int Theroad::findroadpm(char *pn1, char *pn2, char *tm) {
 //	printans(num);
 	return num;
 }
-
+//find the way that choose plane and time
 int Theroad::findroadpt(char *pn1, char *pn2, char *tm) {
 	int s = place.find(pn1)->second;
 	int e = place.find(pn2)->second;
@@ -342,7 +342,7 @@ int Theroad::findroadpt(char *pn1, char *pn2, char *tm) {
 //	printans(num);
 	return num;
 }
-
+//the string is the ans of the result
 string Theroad::printans(int num) {
 	string res;
 	ostringstream oss;
