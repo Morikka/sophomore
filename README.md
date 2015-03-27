@@ -9,6 +9,7 @@ A small demo for  << the data structures and algorithms and applications in C++ 
 
 ### the way to solve the problem is
 
+<<<<<<< HEAD
 枚举，将答案保存在最小堆中。
 
 ###Running
@@ -32,3 +33,5 @@ A small demo for  << the data structures and algorithms and applications in C++ 
 点击change之后可以看到所有车辆信息，在此可以进行对文本的修改。
  
 ![](.\pic\05.png)
+=======
+枚举+最小堆
